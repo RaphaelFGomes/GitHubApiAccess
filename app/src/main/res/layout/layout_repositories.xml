@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="15dp"
+    android:paddingTop="15dp">
+
+    <RelativeLayout
+        android:layout_width="150dp"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imageViewAvatar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:scaleType="centerCrop"
+            app:srcCompat="@mipmap/ic_launcher_round" />
+
+        <TextView
+            android:id="@+id/textViewAuthorName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/imageViewAvatar"
+            android:text="Authorname"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayoutRepositoryInfo"
+        android:layout_width="231dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="20dp">
+
+        <TextView
+            android:id="@+id/textViewRepositoryName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:maxLength="22"
+            android:text="Repository Title"
+            android:textColor="@color/colorAccent"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/textViewRepositoryDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/textViewRepositoryName"
+            android:layout_below="@+id/textViewRepositoryName"
+            android:layout_marginTop="10dp"
+            android:text="Repository Description"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/textViewForks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/textViewRepositoryDescription"
+            android:layout_below="@+id/textViewRepositoryDescription"
+            android:text="Forks: "
+            android:layout_marginTop="5dp" />
+
+        <TextView
+            android:id="@+id/textViewForksCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewRepositoryDescription"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@+id/textViewForks"
+            android:text="5" />
+
+        <TextView
+            android:id="@+id/textViewStars"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewForks"
+            android:text="Stars: "/>
+
+        <TextView
+            android:id="@+id/textViewStarsCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewForksCount"
+            android:layout_marginTop="1dp"
+            android:layout_toEndOf="@+id/textViewStars"
+            android:text="150" />
+
+        <ImageView
+            android:id="@+id/favoriteView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/textViewForksCount"
+            android:layout_below="@+id/textViewRepositoryDescription"
+            android:layout_marginStart="30dp"
+            android:layout_toEndOf="@+id/textViewStarsCount"
+            android:onClick="favotireImageClick"
+            android:src="@drawable/ic_toggle_star_outline_24" />
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">GitHubApiAccess</string>
+    <string name="app_name">GitHub Api Access</string>
+    <string name="snack_bar_load_items_message">Searching Repositories, wait...</string>
+    <string name="action_bar_back_option_title">Back</string>
 </resources>

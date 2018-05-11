@@ -29,9 +29,21 @@ dependencies {
     // GSON
     compile 'com.google.code.gson:gson:2.8.4'
 
-    // JSON Converter
+    // GSON Converter
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
 
     // RETROFIT 2
     compile 'com.squareup.retrofit2:retrofit:2.4.0'
+
+    // RECYCLE VIEW
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
+
+    // CARD VIEW
+    implementation 'com.android.support:cardview-v7:27.1.1'
+
+    // DESIGN
+    implementation 'com.android.support:design:27.1.1'
+
+    // PICASSO
+    compile 'com.squareup.picasso:picasso:2.5.2'
 }
