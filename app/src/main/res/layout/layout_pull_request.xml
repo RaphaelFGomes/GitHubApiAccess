@@ -20,10 +20,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/imageViewPullAuthorAvatar"
+        android:layout_toEndOf="@+id/imageViewPullAuthorAvatar"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
-        android:layout_toEndOf="@+id/imageViewPullAuthorAvatar"
         android:textColor="@color/colorAccent"
         android:textSize="15sp"
         tools:text="Authorrname" />
@@ -50,11 +50,20 @@
         android:textColor="@color/colorStarsForks"/>
 
     <TextView
-        android:id="@+id/textViewPullDescription"
-        android:layout_width="match_parent"
+        android:id="@+id/textViewPullState"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/textViewPullDate"
         android:layout_below="@+id/textViewPullDate"
+        android:text="Opened"
+        android:textColor="@color/colorStarsForks"/>
+
+    <TextView
+        android:id="@+id/textViewPullDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textViewPullState"
+        android:layout_below="@+id/textViewPullState"
         android:layout_marginEnd="10dp"
         android:layout_marginTop="5dp"
         android:text="Pull Request Description"

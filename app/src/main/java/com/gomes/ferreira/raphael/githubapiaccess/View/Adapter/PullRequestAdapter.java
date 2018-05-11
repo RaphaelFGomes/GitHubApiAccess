@@ -17,18 +17,34 @@ import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 public class PullRequestAdapter extends RecyclerView.Adapter<PullRequestAdapter.ViewHolderPull>{
 
-
+    private List<PullRequestRepository> all;
     private List<PullRequestRepository> pulls;
     private Context context;
 
     public PullRequestAdapter(List<PullRequestRepository> pullList, Context context){
         this.pulls = pullList;
+        this.all = pullList;
         this.context = context;
+    }
+
+    public void updateRecyclerData(String state) {
+        pulls = filterMyList(state);
+    }
+
+    private List<PullRequestRepository> filterMyList(String state) {
+        ArrayList<PullRequestRepository> filteredList = new ArrayList<>();
+        for (PullRequestRepository obj : all) {
+             if (obj.getState().equals(state)) {
+                 filteredList.add(obj);
+             }
+        }
+        return filteredList;
     }
 
     @Override
@@ -50,6 +66,7 @@ public class PullRequestAdapter extends RecyclerView.Adapter<PullRequestAdapter.
         }
         holder.textViewPullDescription.setText(description);
         holder.textViewAuthorName.setText(this.pulls.get(position).getAuthor().getLogin());
+        holder.textViewAuthorState.setText(this.pulls.get(position).getState());
         Picasso.with(this.context).load(this.pulls.get(position).getAuthor().getAvatar_url())
                 .resize(35,35)
                 .centerCrop().into(holder.imageViewPullAuthorAvatar);
@@ -71,6 +88,7 @@ public class PullRequestAdapter extends RecyclerView.Adapter<PullRequestAdapter.
         private TextView textViewPullTitle;
         private TextView textViewPullDescription;
         private TextView textViewAuthorName;
+        private TextView textViewAuthorState;
         private ImageView imageViewPullAuthorAvatar;
         private TextView textViewPullDate;
         private List<PullRequestRepository> pulls;
@@ -83,6 +101,7 @@ public class PullRequestAdapter extends RecyclerView.Adapter<PullRequestAdapter.
             textViewPullTitle = itemView.findViewById(R.id.textViewPullTitle);
             textViewPullDescription = itemView.findViewById(R.id.textViewPullDescription);
             textViewAuthorName = itemView.findViewById(R.id.textViewPullAuthorname);
+            textViewAuthorState = itemView.findViewById(R.id.textViewPullState);
             imageViewPullAuthorAvatar = itemView.findViewById(R.id.imageViewPullAuthorAvatar);
             textViewPullDate = itemView.findViewById(R.id.textViewPullDate);
             itemView.setOnClickListener(this);

@@ -7,6 +7,8 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ToggleButton;
 
 import com.gomes.ferreira.raphael.githubapiaccess.Model.PullRequestRepository;
 import com.gomes.ferreira.raphael.githubapiaccess.R;
@@ -29,6 +31,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class PullRequestActivity extends AppCompatActivity {
 
     private static final String API_BASE_URL_PULL_REQUEST = "https://api.github.com/";
+    PullRequestAdapter pullAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,13 +65,11 @@ public class PullRequestActivity extends AppCompatActivity {
             snackbar.show();
         }else{
             OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-
             Retrofit.Builder builder = new Retrofit.Builder()
                     .baseUrl(API_BASE_URL_PULL_REQUEST)
                     .addConverterFactory(GsonConverterFactory.create());
 
             Retrofit retrofit = builder.client(httpClient.build()).build();
-
             GitHubServices repositories =  retrofit.create(GitHubServices.class);
 
             // Fetch a list of the Github repositories.
@@ -78,8 +79,6 @@ public class PullRequestActivity extends AppCompatActivity {
             call.enqueue(new Callback<JsonArray>() {
                 @Override
                 public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
-                    // The network call was a success and we got a response
-                    // TODO: use the repository list and display it
                     JsonArray pullRequests =  response.body();
                     List<PullRequestRepository> pulls = new ArrayList<>();
                     Gson gson = new Gson();
@@ -95,17 +94,17 @@ public class PullRequestActivity extends AppCompatActivity {
                         recyclerView.setLayoutManager(layoutManager);
                         recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(),DividerItemDecoration.VERTICAL));
 
-                        PullRequestAdapter pullAdapter = new PullRequestAdapter(pulls, getApplicationContext());
+                        pullAdapter = new PullRequestAdapter(pulls, getApplicationContext());
                         recyclerView.setAdapter(pullAdapter);
                     }else{
-                        Snackbar snackbar = Snackbar.make(findViewById(R.id.linearLayoutPullActivity), "Nenhum pull request encontrado.", Snackbar.LENGTH_LONG);
+                        Snackbar snackbar = Snackbar.make(findViewById(R.id.linearLayoutPullActivity), "Pull request not found!", Snackbar.LENGTH_LONG);
                         snackbar.show();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<JsonArray> call, Throwable t) {
-                    Snackbar snackbar = Snackbar.make(findViewById(R.id.linearLayoutPullActivity), "Nenhum pull request encontrado.", Snackbar.LENGTH_LONG);
+                    Snackbar snackbar = Snackbar.make(findViewById(R.id.linearLayoutPullActivity), "Pull request not found!", Snackbar.LENGTH_LONG);
                     snackbar.show();
                 }
             });
@@ -119,4 +118,17 @@ public class PullRequestActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    public void onToggleClicked(View view) {
+        if(((ToggleButton) view).isChecked()) {
+            // handle toggle on
+            pullAdapter.updateRecyclerData("close");
+            pullAdapter.notifyDataSetChanged();
+        } else {
+            // handle toggle off
+            pullAdapter.updateRecyclerData("open");
+            pullAdapter.notifyDataSetChanged();
+        }
+    }
+
 }

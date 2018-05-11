@@ -38,20 +38,26 @@ public class DBAdapter {
     }
 
     public boolean insertRepositories (List<Repository> repoList, int page) {
-        Gson gson = new Gson();
-        String jsonInString = gson.toJson(repoList);
+        boolean result = false;
 
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(REPOSITORY_COLUMN_JSON, jsonInString);
-        contentValues.put(REPOSITORY_COLUMN_PAGE, Integer.toString(page));
-        database.insert(REPOSITORY_TABLE_NAME, null, contentValues);
-        return true;
+        try {
+            Gson gson = new Gson();
+            String jsonInString = gson.toJson(repoList);
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(REPOSITORY_COLUMN_JSON, jsonInString);
+            contentValues.put(REPOSITORY_COLUMN_PAGE, Integer.toString(page));
+            database.insert(REPOSITORY_TABLE_NAME, null, contentValues);
+            result = true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return result;
     }
 
     public List<Repository> getAllRepositoriesByPage(int page) {
         List<Repository> repoList = new ArrayList<>();
         try {
-            Cursor res = database.rawQuery("select * from repositories where page = 1", null);
+            Cursor res = database.rawQuery("select * from repositories where page = " + 1, null);
             res.moveToFirst();
 
             if ((res != null) && (res.getCount() > 0)) {

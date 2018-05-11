@@ -80,6 +80,17 @@ public class MainActivity extends AppCompatActivity {
                     Snackbar snackbar = Snackbar.make(findViewById(R.id.linearLayoutMainActivity), "You need connect to Internet to download all repositories!", Snackbar.LENGTH_LONG);
                     snackbar.show();
                 }
+                else {
+                    if (page == 1) {
+                        repositoryAdapter = new RepositoryAdapter(repositoryList, getApplicationContext());
+                        recyclerView.setAdapter(repositoryAdapter);
+                    } else {
+                        repositoryAdapter.addListMoreItems(repositoryList);
+                    }
+                    totalItems += repositoryList.size();
+                    page++;
+                    isLoading = false;
+                }
             } else {
                     OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
                     Retrofit.Builder builder = new Retrofit.Builder()

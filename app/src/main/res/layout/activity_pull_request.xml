@@ -6,10 +6,25 @@
     tools:context="com.gomes.ferreira.raphael.githubapiaccess.View.PullRequestActivity"
     android:id="@+id/linearLayoutPullActivity">
 
+    <ToggleButton
+        android:id="@+id/toggleButtonState"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:text="ToggleButton"
+        android:background="@color/cardview_dark_background"
+        android:textColor="@color/cardview_light_background"
+        android:textOff="State: Open"
+        android:textOn="State: Close"
+        android:onClick="onToggleClicked" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerViewPulls"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true" />
+        android:layout_below="@+id/toggleButtonState"
+        android:layout_alignStart="@+id/toggleButtonState"
+         />
 </RelativeLayout>

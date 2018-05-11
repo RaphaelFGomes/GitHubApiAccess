@@ -10,6 +10,7 @@ public class PullRequestRepository {
     @SerializedName("body")
     private String description;
     private String html_url;
+    private String state;
     @SerializedName("created_at")
     private Date date;
     @SerializedName("user")
@@ -57,5 +58,13 @@ public class PullRequestRepository {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 }
