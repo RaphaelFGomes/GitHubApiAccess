@@ -9,8 +9,10 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gomes.ferreira.raphael.githubapiaccess.Model.Repository;
+import com.gomes.ferreira.raphael.githubapiaccess.Network.Internet;
 import com.gomes.ferreira.raphael.githubapiaccess.View.PullRequestActivity;
 import com.gomes.ferreira.raphael.githubapiaccess.R;
 import com.squareup.picasso.Picasso;
@@ -150,10 +152,16 @@ public class RepositoryAdapter extends RecyclerView.Adapter<RepositoryAdapter.Vi
                     imgView.setTag(1);
                 }
             } else {
-                Intent intent = new Intent(this.context, PullRequestActivity.class);
-                intent.putExtra("authorName", this.repositories.get(getAdapterPosition()).getAuthor().getLogin());
-                intent.putExtra("repositoryName", this.repositories.get(getAdapterPosition()).getName());
-                this.context.startActivity(intent);
+                Internet internet = new Internet();
+                if (!internet.isInternetAvailable(this.context)) {
+                    Toast.makeText(this.context, "Connect to Internet for this!", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    Intent intent = new Intent(this.context, PullRequestActivity.class);
+                    intent.putExtra("authorName", this.repositories.get(getAdapterPosition()).getAuthor().getLogin());
+                    intent.putExtra("repositoryName", this.repositories.get(getAdapterPosition()).getName());
+                    this.context.startActivity(intent);
+                }
             }
         }
     }

@@ -61,8 +61,12 @@ public class PullRequestActivity extends AppCompatActivity {
 
         Internet internet = new Internet();
         if (!internet.isInternetAvailable(getApplicationContext())) {
-            Snackbar snackbar = Snackbar.make(findViewById(R.id.linearLayoutMainActivity), "Você não está conectado à internet.", Snackbar.LENGTH_LONG);
-            snackbar.show();
+            try {
+                Snackbar snackbar = Snackbar.make(findViewById(R.id.linearLayoutMainActivity), "Connect to internet to download Pull Request information!", Snackbar.LENGTH_LONG);
+                snackbar.show();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }else{
             OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
             Retrofit.Builder builder = new Retrofit.Builder()
